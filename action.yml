@@ -1,0 +1,55 @@
+name: 'Test Results Reporter'
+description: 'Aggregates JUnit XML, Jest JSON, and pytest JSON test results and posts a clean, updateable PR comment with failure details and flaky test detection.'
+author: 'test-results-reporter'
+
+branding:
+  icon: 'check-circle'
+  color: 'green'
+
+inputs:
+  test-results:
+    description: |
+      Glob patterns for test result files (newline-separated).
+      Supports JUnit XML (.xml), Jest JSON (--json output), and pytest JSON (pytest-json-report).
+    required: true
+
+  token:
+    description: 'GitHub token used to post PR comments and set annotations.'
+    required: true
+    default: ${{ github.token }}
+
+  previous-results:
+    description: |
+      Path to a results snapshot JSON file from a previous run.
+      When provided, tests that failed this run but passed previously are marked as flaky.
+      Use actions/cache or actions/upload-artifact to persist between runs.
+    required: false
+    default: ''
+
+  results-output:
+    description: 'Path where the current run results snapshot will be written (for use as previous-results in the next run).'
+    required: false
+    default: 'test-results-previous.json'
+
+outputs:
+  passed:
+    description: 'Number of passed tests.'
+
+  failed:
+    description: 'Number of failed tests.'
+
+  skipped:
+    description: 'Number of skipped tests.'
+
+  total:
+    description: 'Total number of tests.'
+
+  flaky-count:
+    description: 'Number of flaky tests detected (failed this run, passed previously).'
+
+  results-json:
+    description: 'Path to the saved results snapshot JSON file.'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
