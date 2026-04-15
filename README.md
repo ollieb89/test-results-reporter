@@ -111,3 +111,9 @@ Expected status 201, received 500
 ## License
 
 MIT
+
+---
+
+## 🧠 Stop CI Debugging Hell
+
+Tired of scanning logs and rerunning jobs? Grab the **[CI Failure Recovery Pack](https://trivexia.gumroad.com/l/ci-failure-recovery-pack)** — includes the **GitHub Actions Triage Checklist** and the **CI Debugging Template** to help you find and fix root causes systematically.
